@@ -6,7 +6,5 @@
     return sumOfNumbers;
   }
 
-
-
   //
 }
