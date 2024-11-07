@@ -2,7 +2,7 @@
 
 The type system of TypeScript offers various ways of combining multiple existing different types by using various operators.
 
-## Union Types:
+## ** Union Types:
 
 Union types can be created in TypeScript by combining two or more already existing different types. The value of the Union type can be any of the combined types, and we refer to those combined types as union members.
 
@@ -67,7 +67,7 @@ console.log(calculateArea(rectangle));
 // Outputs: 24
 ```
 
-## Intersection Types
+## ** Intersection Types
 
 Intersection types are a way of combination of many types. A variable of intersection type must fulfill all the combined types simultaneously, which enables powerful and flexible type combinations.
 Consider the following example of an intersection type:
@@ -157,7 +157,7 @@ Above, a Person is an intersection of ContactDetails and Address. In TypeScript,
 
 ## Key Differences and When to Use Each
 
-## Union types (|):
+## Union types ( | ):
 
 Use when one variable can be one of several types, but not more than one at once. Just what you need when you're dealing with API responses returning more than one possible type or when you have variables that can be one of several types for representing optional values.
 
