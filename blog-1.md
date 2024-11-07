@@ -17,7 +17,7 @@ id = 42; // ok
 
 Above example declares that id can be either of type string or number. Hence TypeScript, through union type - string | number will make sure that id can only have one of these types and no other types can be assigned to id.
 
-Benefits of Union Types:
+## Benefits of Union Types:
 
 ## 1. Type Flexibility
 
@@ -25,11 +25,23 @@ One of the most useful applications of union types is when a variable can logica
 
 ## 2. Better Type Safety:
 
-Learning how to handle them correctly will make our code more straightforward to work with overall; our code will be more reliable and easier to maintain, since TypeScript will check the unions at compile time.
+Learning how to handle them correctly will make our code more straightforward to work with. Overall, our code will be more reliable and easier to maintain, since TypeScript will check the unions at compile time.
 
 ## 3. Improved Code Readability:
 
 Union types make it clear to other developers which types are expected, thus making the code self-documenting.
+
+## Use Case Example for Union Types:
+
+You will more often find union types used in APIs. This is because usually one endpoint may return different kinds of results depending on what comes in. Suppose you have function which fetches information about user, it can return either User object on success, or an error message (string) on failure:
+
+```tsx
+type User = { name: string; age: number };
+function getUser(id: number): User | string {
+  if (id === 1) return { name: "Alice", age: 25 };
+  return "User not found";
+}
+```
 
 ## Intersection Types
 
@@ -68,8 +80,13 @@ Intersection types are perfect in cases where there is a need for modular, reusa
 
 ## Key Differences and When to Use Each
 
-• Union types (|): Use when one variable can be one of several types, but not more than one at once. Just what you need when you're dealing with API responses returning more than one possible type or when you have variables that can be one of several types for representing optional values.
-• Intersection types (&): Applies when one wants a variable to satisfy several type contracts at the same time. It works well in designing composite data models where an entity has to fulfill every type requirement.
+## Union types (|):
+
+Use when one variable can be one of several types, but not more than one at once. Just what you need when you're dealing with API responses returning more than one possible type or when you have variables that can be one of several types for representing optional values.
+
+## Intersection types (&):
+
+Applies when one wants a variable to satisfy several type contracts at the same time. It works well in designing composite data models where an entity has to fulfill every type requirement.
 
 ## Conclusion
 
