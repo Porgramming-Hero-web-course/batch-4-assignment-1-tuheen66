@@ -1,7 +1,7 @@
 {
   //
   function countWordOccurrences(sentence: string, word: string): number {
-    const strSentence = sentence.toLocaleLowerCase().split(/\W+/);
+    const strSentence = sentence.toLocaleLowerCase().split(" ");
     const strWord = word.toLocaleLowerCase();
 
     let wordCount = 0;
