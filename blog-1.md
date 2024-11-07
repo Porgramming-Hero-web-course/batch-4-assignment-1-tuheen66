@@ -10,7 +10,7 @@ Here is an example of a union type:
 
 ```tsx
 let id: string | number;
-id = "abc123"; // ok
+id = "1234"; // ok
 id = 42; // ok
 // id = true;  // Error: Type 'boolean' is not assignable to type 'string | number'.
 ```
@@ -38,9 +38,33 @@ You will more often find union types used in APIs. This is because usually one e
 ```tsx
 type User = { name: string; age: number };
 function getUser(id: number): User | string {
-  if (id === 1) return { name: "Alice", age: 25 };
+  if (id === 1) return { name: "Fatima", age: 25 };
   return "User not found";
 }
+```
+
+Union types are nice when one finds themselves in a situation where a function could take in a variety of types of arguments, but handle each one of those cases nicely.
+
+Suppose we have a function that needs to calculate the area of either of a circle or a rectangle. Both shapes require different properties for calculation, and thus we can union the types to allow either of these shape types and do calculations specific to the input provided:
+
+```tsx
+function calculateArea(shape: Circle | Rectangle): number {
+  if (shape.kind === "circle") {
+    return Math.PI * shape.radius ** 2;
+  } else if (shape.kind === "rectangle") {
+    return shape.width * shape.height;
+  }
+  throw new Error("Unsupported shape");
+}
+
+const circle: Circle = { kind: "circle", radius: 5 };
+const rectangle: Rectangle = { kind: "rectangle", width: 4, height: 6 };
+
+console.log(calculateArea(circle));
+// Outputs: 78.53981633974483
+
+console.log(calculateArea(rectangle));
+// Outputs: 24
 ```
 
 ## Intersection Types
@@ -55,10 +79,10 @@ type Employee = { employeeId: number; department: string };
 type PersonEmployee = Person & Employee;
 
 const employee: PersonEmployee = {
-  name: "John",
+  name: "Monirul",
   age: 30,
   employeeId: 101,
-  department: "HR",
+  department: "Admin",
 };
 ```
 
@@ -77,6 +101,59 @@ Because variables must conform to all parts of the intersection type, one can be
 ## 3. Scalability:
 
 Intersection types are perfect in cases where there is a need for modular, reusable types to be applied to different parts of the application because you can compose more complex types from basic ones.
+
+## Use Case Example for Intersection Types:
+
+Intersection types are valuable in scenarios where entities share characteristics across multiple contexts. For instance, a content management system (CMS) may need to treat an AdminUser as both a User and an Admin:
+
+```tsx
+type User = { name: string; email: string };
+type Admin = { permissions: string[]; role: string };
+
+type AdminUser = User & Admin;
+
+const adminUser: AdminUser = {
+  name: "Monirul",
+  email: "monir@example.com",
+  permissions: ["edit", "delete"],
+  role: "SuperAdmin",
+};
+```
+
+Consider a program in which one must store both contact information and address information on a person. While each may be represented by different types, at times one would like to aggregate the two types into a single view of a person's information.
+
+```tsx
+type ContactDetails = {
+  name: string;
+  phone: string;
+};
+
+type Address = {
+  street: string;
+  city: string;
+  zipCode: string;
+};
+
+type Person = ContactDetails & Address;
+
+const person: Person = {
+  name: "Monirul",
+  phone: "0177777",
+  street: "Eskaton",
+  city: "Dhaka",
+  postCode: "1217",
+};
+
+function displayPersonInfo(person: Person) {
+  console.log(`Name: ${person.name}`);
+  console.log(`Phone: ${person.phone}`);
+  console.log(`Address: ${person.street}, ${person.city}, ${person.postCode}`);
+}
+
+displayPersonInfo(person);
+```
+
+Above, a Person is an intersection of ContactDetails and Address. In TypeScript, the type Person would make sure that an object assigned to a person would contain full details about the contact and address. It goes without saying, then, how easy it will be to deal with fully detailed person records with ease, managing data without hassle in duplicating types or properties.
 
 ## Key Differences and When to Use Each
 
